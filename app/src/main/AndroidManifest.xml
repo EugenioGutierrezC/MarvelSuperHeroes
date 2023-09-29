@@ -10,12 +10,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".MarvelSuperHeroesApp"
         android:theme="@style/Theme.MarvelSuperHeroes"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".core.ui.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.MarvelSuperHeroes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
