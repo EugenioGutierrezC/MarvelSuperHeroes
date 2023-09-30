@@ -1,7 +1,6 @@
 package com.eugenio.marvelsuperheroes.core.ui
 
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,8 +18,7 @@ fun CircularAsyncImage(path: String, contentDescription: String, modifier: Modif
         contentDescription = contentDescription,
         modifier = modifier
             .clip(CircleShape)
-            .height(100.dp)
-            .width(100.dp),
+            .size(100.dp),
         placeholder = painterResource(id = R.drawable.marvel_logo_square),
         error = painterResource(id = R.drawable.marvel_logo_square),
 
