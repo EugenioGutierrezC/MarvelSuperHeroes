@@ -1,10 +1,13 @@
 package com.eugenio.marvelsuperheroes.core.ui
 
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.eugenio.marvelsuperheroes.R
 import com.eugenio.marvelsuperheroes.core.ui.multipreview.DarkAndLightPreview
@@ -14,11 +17,15 @@ fun CircularAsyncImage(path: String, contentDescription: String, modifier: Modif
     AsyncImage(
         model = path,
         contentDescription = contentDescription,
-        modifier = modifier.clip(CircleShape),
-        placeholder = painterResource(id = R.drawable.marvel_logo_square)
+        modifier = modifier
+            .clip(CircleShape)
+            .height(100.dp)
+            .width(100.dp),
+        placeholder = painterResource(id = R.drawable.marvel_logo_square),
+        error = painterResource(id = R.drawable.marvel_logo_square),
+
     )
 }
-
 
 @DarkAndLightPreview
 @Composable
