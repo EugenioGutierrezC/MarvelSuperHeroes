@@ -7,7 +7,7 @@ class HashMD5 {
         require(timeStamp.isNotEmpty()) {
             throw IllegalArgumentException("Timestamp must not be empty")
         }
-        
+
         require(privateKey.isNotEmpty()) {
             throw IllegalArgumentException("PrivateKey must not be empty")
         }
