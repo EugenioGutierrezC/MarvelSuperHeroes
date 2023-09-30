@@ -6,6 +6,7 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.eugenio.marvelsuperheroes.core.ui.multipreview.DarkAndLightPreview
@@ -17,7 +18,9 @@ import com.eugenio.marvelsuperheroes.superheroslist.ui.model.CharacterViewItem
 
 @Composable
 fun CharactersListScreen(viewModel: CharactersListViewModel = hiltViewModel()) {
-    viewModel.getCharacters()
+    LaunchedEffect(key1 = true) {
+        viewModel.getCharacters()
+    }
     when(val state = viewModel.myDataState.value) {
         ViewState.Loading -> CharactersLoading()
         is ViewState.Success -> {
