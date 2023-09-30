@@ -34,7 +34,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"http://gateway.marvel.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://gateway.marvel.com/\"")
         }
         release {
             isMinifyEnabled = false
@@ -42,7 +42,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "BASE_URL", "\"http://gateway.marvel.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://gateway.marvel.com/\"")
         }
     }
     compileOptions {

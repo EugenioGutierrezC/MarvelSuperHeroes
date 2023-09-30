@@ -1,7 +1,9 @@
 package com.eugenio.marvelsuperheroes.superheroslist.data.repository
 
+import android.util.Log
 import com.eugenio.marvelsuperheroes.BuildConfig
 import com.eugenio.marvelsuperheroes.core.utils.HashMD5
+import com.eugenio.marvelsuperheroes.core.utils.IoDispatcher
 import com.eugenio.marvelsuperheroes.superheroslist.data.model.CharactersResponse
 import com.eugenio.marvelsuperheroes.superheroslist.data.network.MarvelAPI
 import kotlinx.coroutines.CoroutineDispatcher
@@ -12,15 +14,18 @@ import javax.inject.Inject
 class CharactersRepository @Inject constructor(
     private val marvelAPI: MarvelAPI,
     private val hashMD5: HashMD5,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    @IoDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.IO
 ){
     private var offset = 0
     suspend fun getAllCharactersEveryTwenty():CharactersResponse?{
-        return withContext(dispatcher){
+        return withContext(defaultDispatcher){
             val timeStamp = System.currentTimeMillis().toString()
             val hash = hashMD5.generateMarvelHash(timeStamp, privateKey, apiKey)
 
             val response = marvelAPI.getCharacters(apiKey, timeStamp, hash, limit20, offset)
+            val fullUrl = response.raw().request.url.toString()
+            Log.d("Llamada", "Calling URL: $fullUrl")
+
             response.body()
         }
     }
