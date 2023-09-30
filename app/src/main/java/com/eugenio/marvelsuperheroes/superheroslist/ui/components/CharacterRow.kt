@@ -40,7 +40,7 @@ fun CharacterRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
-        CircularAsyncImage(path = imageUrl.path, contentDescription = characterName)
+        CircularAsyncImage(path = imageUrl.toString(), contentDescription = characterName)
         Spacer(modifier = Modifier.width(16.dp))
         Column(
             modifier = Modifier.weight(1f),

@@ -15,7 +15,8 @@ class CharactersMapper @Inject constructor()  {
 
     @Singleton
     fun mapToViewItem(character: CharactersResponse.Data.Result): CharacterViewItem {
-        val thumbnailUrl = URL("${character.thumbnail.path}.${character.thumbnail.extension}")
+        val httpsUrl = ensureHttps("${character.thumbnail.path}.${character.thumbnail.extension}")
+        val thumbnailUrl = URL(httpsUrl)
         return CharacterViewItem(
             id = character.id.toString(),
             name = character.name,
@@ -29,4 +30,11 @@ class CharactersMapper @Inject constructor()  {
         return characters.map { mapToViewItem(it) }
     }
 
+    private fun ensureHttps(url: String): String {
+        return if (url.startsWith("http://")) {
+            url.replace("http://", "https://")
+        } else {
+            url
+        }
+    }
 }
