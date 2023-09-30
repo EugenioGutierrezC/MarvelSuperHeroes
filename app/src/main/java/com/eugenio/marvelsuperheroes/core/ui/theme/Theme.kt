@@ -1,4 +1,4 @@
-package com.eugenio.marvelsuperheroes.core.theme.ui
+package com.eugenio.marvelsuperheroes.core.ui.theme
 
 import android.app.Activity
 import android.os.Build
