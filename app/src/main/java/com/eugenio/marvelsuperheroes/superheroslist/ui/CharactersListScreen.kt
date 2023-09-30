@@ -11,14 +11,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.eugenio.marvelsuperheroes.core.ui.multipreview.DarkAndLightPreview
 import com.eugenio.marvelsuperheroes.core.ui.theme.MarvelSuperHeroesTheme
 import com.eugenio.marvelsuperheroes.core.utils.ViewState
+import com.eugenio.marvelsuperheroes.superheroslist.ui.components.CharacterRow
 import com.eugenio.marvelsuperheroes.superheroslist.ui.components.CharacterRowShimmer
+import com.eugenio.marvelsuperheroes.superheroslist.ui.model.CharacterViewItem
 
 @Composable
 fun CharactersListScreen(viewModel: CharactersListViewModel = hiltViewModel()) {
+    viewModel.getCharacters()
     when(val state = viewModel.myDataState.value) {
         ViewState.Loading -> CharactersLoading()
         is ViewState.Success -> {
-            CharactersSuccess()
+            CharactersSuccess(state.data)
         }
         is ViewState.Error -> {
             state.exception
@@ -37,8 +40,13 @@ fun CharactersLoading() {
 }
 
 @Composable
-fun CharactersSuccess() {
-    //Set up when retrivedata
+fun CharactersSuccess(charactersList: List<CharacterViewItem>) {
+    LazyColumn {
+        items(charactersList.size) { index ->
+            CharacterRow(charactersList[index].name, charactersList[index].comics, charactersList[index].thumbnail)
+            Divider(Modifier.fillMaxSize())
+        }
+    }
 }
 
 @Composable
