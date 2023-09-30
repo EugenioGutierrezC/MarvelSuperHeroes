@@ -71,6 +71,7 @@ dependencies {
     val retrofitVersion = "2.9.0"
     val lifecycleVersion = "2.6.2"
     val navigationVersion = "2.7.3"
+    val coilVersion = "2.4.0"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -103,6 +104,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
+
+    //Glide
+    implementation("io.coil-kt:coil-compose:$coilVersion")
 }
 
 // Allow references to generated code
