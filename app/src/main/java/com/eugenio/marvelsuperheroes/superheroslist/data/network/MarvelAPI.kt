@@ -1,5 +1,6 @@
 package com.eugenio.marvelsuperheroes.superheroslist.data.network
 
+import com.eugenio.marvelsuperheroes.superheroslist.data.model.CharactersResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -13,7 +14,7 @@ interface MarvelAPI {
     @GET("v1/public/characters")
     suspend fun getCharacters(
         @Query("apikey") apiKey: String,
-        @Query("ts") timeStamp: Long,
+        @Query("ts") timeStamp: String,
         @Query("hash") hash: String,
         @Query("limit") limit: Int,
         @Query("offset") offset: Int
@@ -26,7 +27,7 @@ interface MarvelAPI {
     suspend fun getCharacterById(
         @Path("characterId") characterId: Int,
         @Query("apikey") apiKey: String,
-        @Query("ts") timeStamp: Long,
+        @Query("ts") timeStamp: String,
         @Query("hash") hash: String,
     ): Response<CharactersResponse>
 
@@ -37,7 +38,7 @@ interface MarvelAPI {
     suspend fun getCharacterByName(
         @Query("nameStartsWith") name: String,
         @Query("apikey") apiKey: String,
-        @Query("ts") timeStamp: Long,
+        @Query("ts") timeStamp: String,
         @Query("hash") hash: String,
         @Query("limit") limit: Int,
         @Query("offset") offset: Int
