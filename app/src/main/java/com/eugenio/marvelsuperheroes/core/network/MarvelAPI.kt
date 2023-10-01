@@ -41,6 +41,8 @@ interface MarvelAPI {
         @Query("apikey") apiKey: String,
         @Query("ts") timeStamp: String,
         @Query("hash") hash: String,
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int
     ): Response<CharacterComicsResponse>
 
     /**
