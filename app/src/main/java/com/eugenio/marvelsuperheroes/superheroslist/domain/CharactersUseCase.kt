@@ -20,7 +20,7 @@ class CharactersUseCase @Inject constructor(
         return Pager(
             config = PagingConfig(
                 pageSize = CharactersRepository.limit20,
-                enablePlaceholders = false
+                prefetchDistance = 1
             ),
             pagingSourceFactory = { characterPagingSource }
         ).flow.map { pagingData ->
