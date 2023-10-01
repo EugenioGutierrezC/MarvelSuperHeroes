@@ -9,21 +9,39 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.eugenio.marvelsuperheroes.R
-import com.eugenio.marvelsuperheroes.core.ui.multipreview.DarkAndLightPreview
+import com.eugenio.marvelsuperheroes.core.utils.ViewState
+import com.eugenio.marvelsuperheroes.superherodetail.ui.components.ComicRow
 
 @Composable
-fun CharacterDetailScreen() {
-    CharacterDetail("", "Spiderman", "Asdasdgasdg")
+fun CharacterDetailScreen(viewModel: CharacterDetailViewModel = hiltViewModel(), characterId: Int) {
+    LaunchedEffect(characterId) {
+        viewModel.initialize(characterId)
+        viewModel.getCharacters(characterId)
+    }
+    when(val state = viewModel.myDataState.value) {
+        ViewState.Loading -> {}
+        is ViewState.Success -> {
+            CharacterDetail(viewModel, state.data.thumbnail.toString(), state.data.name, state.data.description)
+        }
+        is ViewState.Error -> {
+            state.exception
+        }
+    }
 }
 
 @Composable
-fun CharacterDetail(imagePath: String, title: String, description: String) {
+fun CharacterDetail(viewModel: CharacterDetailViewModel = hiltViewModel(), imagePath: String, title: String, description: String) {
+
+    val comics = viewModel.charactersFlow.collectAsLazyPagingItems()
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp)
@@ -51,14 +69,21 @@ fun CharacterDetail(imagePath: String, title: String, description: String) {
             )
         }
 
-        items(10) { index ->
-
+        items(comics.itemCount) { index ->
+            val comic = comics[index]
+            if (comic != null) {
+                ComicRow(
+                    title = comic.name,
+                    date = "Hoy",
+                    imageUrl = comic.thumbnail
+                )
+            }
         }
     }
 }
 
-@Composable
+/*@Composable
 @DarkAndLightPreview
 fun CharacterDetailScreenPreview() {
-    CharacterDetailScreen()
-}
+    CharacterDetail("", "Spiderman", "Vecino y amigo")
+}*/

@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.eugenio.marvelsuperheroes.core.data.Routes
 import com.eugenio.marvelsuperheroes.superherodetail.ui.CharacterDetailScreen
+import com.eugenio.marvelsuperheroes.superherodetail.ui.CharacterDetailViewModel
 import com.eugenio.marvelsuperheroes.superheroslist.ui.CharactersListScreen
 import com.eugenio.marvelsuperheroes.superheroslist.ui.CharactersListViewModel
 
@@ -24,7 +25,8 @@ fun Navigation() {
             route = Routes.CharacterDetail.route,
             arguments = listOf(navArgument("characterId") { type = NavType.IntType })
         ) {
-            CharacterDetailScreen()
+            val viewModel: CharacterDetailViewModel = hiltViewModel()
+            CharacterDetailScreen(viewModel = viewModel, it.arguments?.getInt("characterId") ?: 0)
         }
     }
 }
