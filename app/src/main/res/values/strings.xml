@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Marvel Super Heroes</string>
+    <string name="connection_error_title">Connection Error</string>
+    <string name="connection_error_description">There seems to be a problem with the connection. Please check your network settings and try again.</string>
+    <string name="connection_error_try_again_button">Try again</string>
+    <string name="connection_error_close_button">Close app</string>
 </resources>
