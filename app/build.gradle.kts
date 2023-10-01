@@ -72,6 +72,7 @@ dependencies {
     val lifecycleVersion = "2.6.2"
     val navigationVersion = "2.7.3"
     val coilVersion = "2.4.0"
+    val pagingVersion = "3.2.0"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -106,8 +107,11 @@ dependencies {
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
 
-    //Glide
+    // Glide
     implementation("io.coil-kt:coil-compose:$coilVersion")
+
+    // Paging
+    implementation("androidx.paging:paging-compose:$pagingVersion")
 }
 
 // Allow references to generated code
