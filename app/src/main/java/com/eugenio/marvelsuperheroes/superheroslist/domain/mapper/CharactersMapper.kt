@@ -18,9 +18,9 @@ class CharactersMapper @Inject constructor()  {
         val httpsUrl = ensureHttps("${character.thumbnail.path}.${character.thumbnail.extension}")
         val thumbnailUrl = URL(httpsUrl)
         return CharacterViewItem(
-            id = character.id.toString(),
+            id = character.id,
             name = character.name,
-            comics = character.comics.available.toString(),
+            comics = character.comics.available,
             thumbnail = thumbnailUrl
         )
     }

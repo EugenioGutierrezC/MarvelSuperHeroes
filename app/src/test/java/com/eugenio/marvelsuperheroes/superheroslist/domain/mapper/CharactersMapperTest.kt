@@ -20,10 +20,10 @@ class CharactersMapperTest {
         val character = mockCharacterResult()
 
         val expectedViewItem = CharacterViewItem(
-            id = "123",
+            id = 123,
             name = "Iron Man",
-            comics = "50",
-            thumbnail = URL("http://path.to/image.jpg")
+            comics = 50,
+            thumbnail = URL("https://path.to/image.jpg")
         )
 
         val mappedItem = charactersMapper.mapToViewItem(character)
@@ -40,16 +40,16 @@ class CharactersMapperTest {
 
         val expectedViewItems = listOf(
             CharacterViewItem(
-                id = "123",
+                id = 123,
                 name = "Iron Man",
-                comics = "50",
-                thumbnail = URL("http://path.to/image.jpg")
+                comics = 50,
+                thumbnail = URL("https://path.to/image.jpg")
             ),
             CharacterViewItem(
-                id = "123",
+                id = 123,
                 name = "Iron Man",
-                comics = "50",
-                thumbnail = URL("http://path.to/image.jpg")
+                comics = 50,
+                thumbnail = URL("https://path.to/image.jpg")
             ),
         )
 
