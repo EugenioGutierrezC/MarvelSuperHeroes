@@ -1,6 +1,7 @@
 package com.eugenio.marvelsuperheroes.superheroslist.domain.mapper
 
 import com.eugenio.marvelsuperheroes.core.data.model.CharactersResponse
+import com.eugenio.marvelsuperheroes.core.utils.ensureHttps
 import com.eugenio.marvelsuperheroes.superheroslist.ui.model.CharacterViewItem
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,13 +29,5 @@ class CharactersMapper @Inject constructor()  {
     @Singleton
     fun mapToViewItems(characters: List<CharactersResponse.Data.Result>): List<CharacterViewItem> {
         return characters.map { mapToViewItem(it) }
-    }
-
-    private fun ensureHttps(url: String): String {
-        return if (url.startsWith("http://")) {
-            url.replace("http://", "https://")
-        } else {
-            url
-        }
     }
 }
