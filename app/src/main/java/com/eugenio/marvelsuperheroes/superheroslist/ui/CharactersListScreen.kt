@@ -6,29 +6,25 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.eugenio.marvelsuperheroes.core.ui.multipreview.DarkAndLightPreview
 import com.eugenio.marvelsuperheroes.core.ui.theme.MarvelSuperHeroesTheme
-import com.eugenio.marvelsuperheroes.core.utils.ViewState
 import com.eugenio.marvelsuperheroes.superheroslist.ui.components.CharacterRow
 import com.eugenio.marvelsuperheroes.superheroslist.ui.components.CharacterRowShimmer
 import com.eugenio.marvelsuperheroes.superheroslist.ui.model.CharacterViewItem
 
 @Composable
 fun CharactersListScreen(viewModel: CharactersListViewModel = hiltViewModel()) {
-    LaunchedEffect(key1 = true) {
-        viewModel.getCharacters()
-    }
-    when(val state = viewModel.myDataState.value) {
-        ViewState.Loading -> CharactersLoading()
-        is ViewState.Success -> {
-            CharactersSuccess(state.data)
-        }
-        is ViewState.Error -> {
-            state.exception
-        }
+    val characters = viewModel.charactersFlow.collectAsLazyPagingItems()
+
+    if (characters.loadState.refresh is LoadState.Loading) {
+        CharactersLoading()
+    } else {
+        CharactersList(characters)
     }
 }
 
@@ -43,11 +39,18 @@ fun CharactersLoading() {
 }
 
 @Composable
-fun CharactersSuccess(charactersList: List<CharacterViewItem>) {
+fun CharactersList(charactersList: LazyPagingItems<CharacterViewItem>) {
     LazyColumn {
-        items(charactersList.size) { index ->
-            CharacterRow(charactersList[index].name, charactersList[index].comics, charactersList[index].thumbnail)
-            Divider(Modifier.fillMaxSize())
+        items(charactersList.itemCount) { index ->
+            val character = charactersList[index]
+            if (character != null) {
+                CharacterRow(character.name, character.comics, character.thumbnail)
+            }
+        }
+        item {
+            if(charactersList.loadState.append is LoadState.Loading) {
+                CharacterRowShimmer()
+            }
         }
     }
 }

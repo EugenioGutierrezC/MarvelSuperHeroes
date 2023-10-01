@@ -24,7 +24,7 @@ class CharactersRepository @Inject constructor(
 
             val response = marvelAPI.getCharacters(apiKey, timeStamp, hash, limit20, offset)
             val fullUrl = response.raw().request.url.toString()
-            Log.d("Llamada", "Calling URL: $fullUrl")
+            Log.d("MarvelAPI", "Calling URL: $fullUrl")
 
             response.body()
         }
