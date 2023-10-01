@@ -88,7 +88,7 @@ fun ComicRowSkeleton() {
 fun ComicRowPreview() {
     val url =
         URL("https://i.annihil.us/u/prod/marvel/i/mg/9/50/4ce5a385a2e82/standard_fantastic.jpg")
-    ComicRow("Spiderman", "Hoy", url)
+    ComicRow("Spiderman", "11/10/23", url)
 }
 
 @Composable

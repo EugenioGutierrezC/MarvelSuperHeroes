@@ -1,6 +1,7 @@
 package com.eugenio.marvelsuperheroes.superherodetail.domain.mapper
 
 import com.eugenio.marvelsuperheroes.core.data.model.CharacterComicsResponse
+import com.eugenio.marvelsuperheroes.core.utils.DateUtils
 import com.eugenio.marvelsuperheroes.core.utils.ensureHttps
 import com.eugenio.marvelsuperheroes.superherodetail.ui.model.ComicsItem
 import dagger.Module
@@ -19,17 +20,18 @@ class ComicMapper @Inject constructor()  {
         val httpsUrl = ensureHttps("${comic.thumbnail.path}.${comic.thumbnail.extension}")
         val thumbnailUrl = URL(httpsUrl)
 
-        val onsaleDate = comic.dates.find { it.type == SALE_DATE }?.date ?: TBA
+        val onsaleDate = comic.dates.find { it.type == SALE_DATE }?.date ?: ""
+        val date = DateUtils.parseISODate(onsaleDate)
+        val final = date?.let { DateUtils.formatDate(it) }
 
         return ComicsItem(
             name = comic.title,
-            date = onsaleDate,
+            date = final ?: "",
             thumbnail = thumbnailUrl
         )
     }
 
     companion object {
         private const val SALE_DATE = "onsaleDate"
-        private const val TBA = "TBA"
     }
 }

@@ -74,7 +74,7 @@ fun CharacterDetail(viewModel: CharacterDetailViewModel = hiltViewModel(), image
             if (comic != null) {
                 ComicRow(
                     title = comic.name,
-                    date = "Hoy",
+                    date = comic.date,
                     imageUrl = comic.thumbnail
                 )
             }
