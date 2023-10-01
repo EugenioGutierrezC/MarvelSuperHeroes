@@ -1,6 +1,7 @@
-package com.eugenio.marvelsuperheroes.superheroslist.data.network
+package com.eugenio.marvelsuperheroes.core.network
 
-import com.eugenio.marvelsuperheroes.superheroslist.data.model.CharactersResponse
+import com.eugenio.marvelsuperheroes.core.data.model.CharacterComicsResponse
+import com.eugenio.marvelsuperheroes.core.data.model.CharactersResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -30,6 +31,17 @@ interface MarvelAPI {
         @Query("ts") timeStamp: String,
         @Query("hash") hash: String,
     ): Response<CharactersResponse>
+
+    /**
+     * Get comics from a character
+     */
+    @GET("v1/public/characters/{characterId}/comics")
+    suspend fun getCharacterComicsById(
+        @Path("characterId") characterId: Int,
+        @Query("apikey") apiKey: String,
+        @Query("ts") timeStamp: String,
+        @Query("hash") hash: String,
+    ): Response<CharacterComicsResponse>
 
     /**
      * Get specific character by name
