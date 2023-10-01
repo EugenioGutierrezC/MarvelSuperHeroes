@@ -1,4 +1,4 @@
-package com.eugenio.marvelsuperheroes.superheroslist.data.model
+package com.eugenio.marvelsuperheroes.core.data.model
 
 
 import com.google.gson.annotations.SerializedName

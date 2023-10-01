@@ -5,11 +5,11 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.eugenio.marvelsuperheroes.BuildConfig
 import com.eugenio.marvelsuperheroes.core.utils.HashMD5
-import com.eugenio.marvelsuperheroes.superheroslist.data.model.CharactersResponse
-import com.eugenio.marvelsuperheroes.superheroslist.data.network.MarvelAPI
+import com.eugenio.marvelsuperheroes.core.data.model.CharactersResponse
+import com.eugenio.marvelsuperheroes.core.network.MarvelAPI
 import javax.inject.Inject
 
-class CharacterPagingSource @Inject constructor(
+class CharactersPagingSource @Inject constructor(
     private val marvelAPI: MarvelAPI,
     private val hashMD5: HashMD5,
 ) : PagingSource<Int, CharactersResponse.Data.Result>() {

@@ -1,6 +1,6 @@
 package com.eugenio.marvelsuperheroes.superheroslist.domain.mapper
 
-import com.eugenio.marvelsuperheroes.superheroslist.data.model.CharactersResponse
+import com.eugenio.marvelsuperheroes.core.data.model.CharactersResponse
 import com.eugenio.marvelsuperheroes.superheroslist.ui.model.CharacterViewItem
 import dagger.Module
 import dagger.hilt.InstallIn

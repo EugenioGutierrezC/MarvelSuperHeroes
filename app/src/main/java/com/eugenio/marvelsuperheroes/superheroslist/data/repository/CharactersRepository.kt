@@ -4,8 +4,8 @@ import android.util.Log
 import com.eugenio.marvelsuperheroes.BuildConfig
 import com.eugenio.marvelsuperheroes.core.utils.HashMD5
 import com.eugenio.marvelsuperheroes.core.utils.IoDispatcher
-import com.eugenio.marvelsuperheroes.superheroslist.data.model.CharactersResponse
-import com.eugenio.marvelsuperheroes.superheroslist.data.network.MarvelAPI
+import com.eugenio.marvelsuperheroes.core.data.model.CharactersResponse
+import com.eugenio.marvelsuperheroes.core.network.MarvelAPI
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,7 +17,7 @@ class CharactersRepository @Inject constructor(
     @IoDispatcher private val defaultDispatcher: CoroutineDispatcher = Dispatchers.IO
 ){
     private var offset = 0
-    suspend fun getAllCharactersEveryTwenty():CharactersResponse?{
+    suspend fun getAllCharactersEveryTwenty(): CharactersResponse?{
         return withContext(defaultDispatcher){
             val timeStamp = System.currentTimeMillis().toString()
             val hash = hashMD5.generateMarvelHash(timeStamp, privateKey, apiKey)

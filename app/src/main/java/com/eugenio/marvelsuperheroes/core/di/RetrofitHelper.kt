@@ -1,7 +1,7 @@
 package com.eugenio.marvelsuperheroes.core.di
 
 import com.eugenio.marvelsuperheroes.BuildConfig
-import com.eugenio.marvelsuperheroes.superheroslist.data.network.MarvelAPI
+import com.eugenio.marvelsuperheroes.core.network.MarvelAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
