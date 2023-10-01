@@ -29,12 +29,13 @@ import java.net.URL
 
 @Composable
 fun CharacterRow(
+    modifier: Modifier = Modifier,
     characterName: String,
     totalComics: Int,
     imageUrl: URL
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -133,7 +134,7 @@ fun CharacterRowShimmer() {
 fun CharacterRowPreview() {
     val url =
         URL("https://i.annihil.us/u/prod/marvel/i/mg/9/50/4ce5a385a2e82/standard_fantastic.jpg")
-    CharacterRow("Spiderman", 575, url)
+    CharacterRow(Modifier,"Spiderman", 575, url)
 }
 
 @Composable

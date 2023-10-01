@@ -18,7 +18,7 @@ fun Navigation() {
     NavHost(navController = navController, startDestination = Routes.CharactersList.route) {
         composable(route = Routes.CharactersList.route) {
             val viewModel: CharactersListViewModel = hiltViewModel()
-            CharactersListScreen(viewModel = viewModel)
+            CharactersListScreen(navController = navController, viewModel = viewModel)
         }
         composable(
             route = Routes.CharacterDetail.route,
