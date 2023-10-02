@@ -1,11 +1,13 @@
 package com.eugenio.marvelsuperheroes.superherodetail.ui
 
+import android.app.Activity
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -25,14 +27,20 @@ fun CharacterDetailScreen(viewModel: CharacterDetailViewModel = hiltViewModel(),
         viewModel.initialize(characterId)
         viewModel.getCharacters(characterId)
     }
+    val comics = viewModel.charactersFlow?.collectAsLazyPagingItems()
+    val activity = (LocalContext.current as? Activity)
+
     when (val state = viewModel.myDataState.value) {
         ViewState.Loading -> {
             CharacterDetailLoading()
         }
         is ViewState.Success -> {
-            val comics = viewModel.charactersFlow.collectAsLazyPagingItems()
-            val list = List(comics.itemCount) { index ->
-                comics[index]
+            val list = if(comics != null) {
+                List(comics.itemCount) { index ->
+                    comics[index]
+                }
+            } else {
+                emptyList()
             }
             CharacterDetail(
                 list,
@@ -45,8 +53,13 @@ fun CharacterDetailScreen(viewModel: CharacterDetailViewModel = hiltViewModel(),
         is ViewState.Error -> {
             ErrorDialog(
                 onButtonClick = {
+                    viewModel.getCharacters(characterId)
+                    viewModel.initialize(characterId)
+                    comics?.retry()
                 },
-                onDissmissClick = { }
+                onDissmissClick = {
+                    activity?.finish()
+                }
             )
             state.exception
         }

@@ -20,7 +20,7 @@ class CharacterDetailViewModel @Inject constructor(
     private val characterDetailUseCase: CharacterDetailUseCase
 ): ViewModel() {
     val myDataState = mutableStateOf<ViewState<CharacterDetailItem>>(ViewState.Loading)
-    lateinit var charactersFlow: Flow<PagingData<ComicsItem>>
+    var charactersFlow: Flow<PagingData<ComicsItem>>? = null
 
     fun initialize(characterId: Int) {
         charactersFlow = characterDetailUseCase.getComics(characterId).cachedIn(viewModelScope)
