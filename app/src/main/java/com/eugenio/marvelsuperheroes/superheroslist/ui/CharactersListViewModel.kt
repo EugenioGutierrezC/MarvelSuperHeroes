@@ -1,6 +1,5 @@
 package com.eugenio.marvelsuperheroes.superheroslist.ui
 
-
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
