@@ -13,7 +13,9 @@ import com.eugenio.marvelsuperheroes.core.ui.components.ErrorDialog
 import com.eugenio.marvelsuperheroes.core.ui.multipreview.DarkAndLightPreview
 import com.eugenio.marvelsuperheroes.core.utils.ViewState
 import com.eugenio.marvelsuperheroes.superherodetail.ui.components.CharacterInformation
+import com.eugenio.marvelsuperheroes.superherodetail.ui.components.CharacterInformationSkeleton
 import com.eugenio.marvelsuperheroes.superherodetail.ui.components.ComicRow
+import com.eugenio.marvelsuperheroes.superherodetail.ui.components.ComicRowSkeleton
 import com.eugenio.marvelsuperheroes.superherodetail.ui.model.ComicsItem
 import java.net.URL
 
@@ -24,7 +26,9 @@ fun CharacterDetailScreen(viewModel: CharacterDetailViewModel = hiltViewModel(),
         viewModel.getCharacters(characterId)
     }
     when (val state = viewModel.myDataState.value) {
-        ViewState.Loading -> {}
+        ViewState.Loading -> {
+            CharacterDetailLoading()
+        }
         is ViewState.Success -> {
             val comics = viewModel.charactersFlow.collectAsLazyPagingItems()
             val list = List(comics.itemCount) { index ->
@@ -37,7 +41,13 @@ fun CharacterDetailScreen(viewModel: CharacterDetailViewModel = hiltViewModel(),
                 state.data.description
             )
         }
+
         is ViewState.Error -> {
+            ErrorDialog(
+                onButtonClick = {
+                },
+                onDissmissClick = { }
+            )
             state.exception
         }
     }
@@ -73,6 +83,18 @@ fun CharacterDetail(
 }
 
 @Composable
+fun CharacterDetailLoading() {
+    LazyColumn {
+        item {
+            CharacterInformationSkeleton()
+        }
+        items(10) {
+            ComicRowSkeleton()
+        }
+    }
+}
+
+@Composable
 @DarkAndLightPreview
 fun CharacterDetailScreenPreview() {
     val fakeComicsList = listOf(
@@ -80,4 +102,10 @@ fun CharacterDetailScreenPreview() {
         ComicsItem("Comic 2", "18/10/2023", URL("https://fake.url/image2"))
     )
     CharacterDetail(fakeComicsList, "https://fake.url/image2", "Spiderman", "Vecino y amigo")
+}
+
+@Composable
+@DarkAndLightPreview
+fun CharacterDetailLoadingScreenPreview() {
+    CharacterDetailLoading()
 }
