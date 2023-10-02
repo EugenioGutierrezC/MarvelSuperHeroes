@@ -1,5 +1,7 @@
 package com.eugenio.marvelsuperheroes.core.ui
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
@@ -23,7 +25,31 @@ fun Navigation() {
         }
         composable(
             route = Routes.CharacterDetail.route,
-            arguments = listOf(navArgument("characterId") { type = NavType.IntType })
+            arguments = listOf(navArgument("characterId") { type = NavType.IntType }),
+            enterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Companion.Left,
+                    animationSpec = tween(500)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Companion.Left,
+                    animationSpec = tween(500)
+                )
+            },
+            popEnterTransition = {
+                slideIntoContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Companion.Right,
+                    animationSpec = tween(500)
+                )
+            },
+            popExitTransition = {
+                slideOutOfContainer(
+                    towards = AnimatedContentTransitionScope.SlideDirection.Companion.Right,
+                    animationSpec = tween(500)
+                )
+            }
         ) {
             val viewModel: CharacterDetailViewModel = hiltViewModel()
             CharacterDetailScreen(viewModel = viewModel, it.arguments?.getInt("characterId") ?: 0)
