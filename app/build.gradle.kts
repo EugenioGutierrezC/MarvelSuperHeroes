@@ -28,8 +28,8 @@ android {
         val properties = Properties()
         properties.load(project.rootProject.file("local.properties").inputStream())
 
-        buildConfigField("String", "API_KEY", "\"${properties.getProperty("MARVEL_API_KEY")}\"")
-        buildConfigField("String", "PRIVATE_KEY", "\"${properties.getProperty("MARVEL_PRIVATE_KEY")}\"")
+        buildConfigField("String", "API_KEY", "\"86881e03981a961f48ead7d2bd8babeb\""/*"\"${properties.getProperty("MARVEL_API_KEY")}\""*/)
+        buildConfigField("String", "PRIVATE_KEY", "\"b2bee36ec28ccb779a9012adaf4636a62d5b2906\""/*"\"${properties.getProperty("MARVEL_PRIVATE_KEY")}\""*/)
     }
 
     buildTypes {
