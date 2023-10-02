@@ -35,7 +35,7 @@ fun CharactersListScreen(
         is LoadState.Error -> {
             ErrorDialog(
                 onButtonClick = {
-                    viewModel.reloadData()
+                    characters.retry()
                 },
                 onDissmissClick = {
                     activity?.finish()
